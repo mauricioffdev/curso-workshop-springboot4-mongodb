@@ -16,15 +16,16 @@ public class Instantiation implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // Limpa o banco antes de inserir para não duplicar
+        // Limpa a coleção no banco antes de inserir para não duplicar
         userRepository.deleteAll();
 
         // Cria os usuários do zero
         User maria = new User(null, "Maria Brown", "maria@gmail.com");
         User alex = new User(null, "Alex Green", "alex@gmail.com");
+        User bob = new User(null, "Bob Grey", "bob@gmail.com");
 
         // Salva no MongoDB
-        userRepository.saveAll(Arrays.asList(maria, alex));
+        userRepository.saveAll(Arrays.asList(maria, alex, bob));
 
         System.out.println("🎸 >>> DADOS INSERIDOS COM SUCESSO PELO JAVA! <<< 🎸");
     }
