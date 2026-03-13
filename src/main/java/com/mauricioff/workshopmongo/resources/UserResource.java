@@ -1,5 +1,6 @@
 package com.mauricioff.workshopmongo.resources;
 
+import com.mauricioff.workshopmongo.domain.Post;
 import com.mauricioff.workshopmongo.domain.User;
 import com.mauricioff.workshopmongo.dto.UserDTO;
 import com.mauricioff.workshopmongo.services.UserService;
@@ -29,7 +30,7 @@ public class UserResource {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<UserDTO> finById(@PathVariable String id) {
+    public ResponseEntity<UserDTO> findById(@PathVariable String id) {
         User obj = service.findById(id);
         return ResponseEntity.ok().body(new UserDTO(obj));
     }
@@ -54,6 +55,12 @@ public class UserResource {
         obj.setId(id);
         obj = service.update(obj);
         return ResponseEntity.noContent().build();
+    }
+    //Endpoint para retornar os posts de um usuário
+    @RequestMapping(value = "/{id}/posts", method = RequestMethod.GET)
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
     }
 }
 
