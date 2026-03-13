@@ -1,12 +1,15 @@
 package com.mauricioff.workshopmongo.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-@Document(collection="user")
+@Document(collection = "user")
 public class User implements Serializable {
     // Serializable converte os arquivos em bytes para ser trafegado em rede, gravado em arquivo.
     private static final long serialVersionUID = 1L;
@@ -15,6 +18,10 @@ public class User implements Serializable {
     private String id;
     private String name;
     private String email;
+
+    //(lazy = true) carrega só os dados basicos do usuario e nao os posts
+    @DBRef(lazy = true)
+    private List<Post> posts = new ArrayList<>();
 
     public User() {
     }
@@ -47,6 +54,14 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 
     @Override

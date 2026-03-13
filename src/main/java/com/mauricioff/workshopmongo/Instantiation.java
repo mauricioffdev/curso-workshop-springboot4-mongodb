@@ -47,6 +47,9 @@ public class Instantiation implements CommandLineRunner {
         //Faz o "salvamento em lote" no banco de dados. O Arrays.asList() cria o pacote para ser enviado.
         postRepository.saveAll(Arrays.asList(post1, post2));
 
+        maria.getPosts().addAll(Arrays.asList(post1, post2));
+        userRepository.save(maria);
+
         System.out.println("🎸 >>> DADOS INSERIDOS COM SUCESSO PELO JAVA! <<< 🎸");
     }
 }
